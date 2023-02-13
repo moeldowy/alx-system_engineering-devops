@@ -1,2 +1,11 @@
 #!/bin/bash
-find . -mindepth 1 -type d | wc -1
+
+count=0
+for d in */ ; do
+  if [ "$d" != "./" ] && [ "$d" != "../" ]; then
+    count=$((count + 1))
+    count=$((count + $(ls -l "$d" | grep ^d | wc -l)))
+  fi
+done
+
+echo "Number of directories and sub-directories: $count"
